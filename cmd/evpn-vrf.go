@@ -12,6 +12,7 @@ import (
 
 	"github.com/opiproject/godpu/network"
 	"github.com/spf13/cobra"
+	pb "github.com/opiproject/opi-api/network/evpn-gw/v1alpha1/gen/go"	
 )
 
 // CreateVRF Create vrf on OPI Server
@@ -37,8 +38,7 @@ func CreateVRF() *cobra.Command {
 			if err != nil {
 				log.Fatalf("failed to create vrf: %v", err)
 			}
-			log.Printf("Created VRF with \n name: %s\n operation status: %d\n vni : %d\n vtep ip : %s\n loopback ip: %s\n", vrf.GetName(), vrf.GetStatus().GetOperStatus(),
-				vrf.GetSpec().GetVni(), vrf.GetSpec().GetVtepIpPrefix(), vrf.GetSpec().GetLoopbackIpPrefix())
+			log.Printf("Created VRF with \n name: %s\n operation status: %s\n vni : %d\n vtep ip : %s\n loopback ip: %s\n Status:%+v\n", vrf.GetName(), pb.VRFOperStatus_name[int32(vrf.GetStatus().GetOperStatus())],vrf.GetSpec().GetVni(), vrf.GetSpec().GetVtepIpPrefix(), vrf.GetSpec().GetLoopbackIpPrefix(),vrf.GetStatus().GetComponents())
 		},
 	}
 
@@ -112,8 +112,7 @@ func GetVRF() *cobra.Command {
 			if err != nil {
 				log.Fatalf("DeleteVRF: Error occurred while creating Bridge Port: %q", err)
 			}
-			log.Printf("VRF with \n name: %s\n operation status: %d\n vni : %d\n vtep ip : %s\n loopback ip: %s\n", vrf.GetName(), vrf.GetStatus().GetOperStatus(),
-				vrf.GetSpec().GetVni(), vrf.GetSpec().GetVtepIpPrefix(), vrf.GetSpec().GetLoopbackIpPrefix())
+			log.Printf("VRF with \n name: %s\n operation status: %s\n vni : %d\n vtep ip : %s\n loopback ip: %s\n Status %+v\n", vrf.GetName(), pb.VRFOperStatus_name[int32(vrf.GetStatus().GetOperStatus())],vrf.GetSpec().GetVni(), vrf.GetSpec().GetVtepIpPrefix(), vrf.GetSpec().GetLoopbackIpPrefix(),vrf.GetStatus().GetComponents())
 		},
 	}
 

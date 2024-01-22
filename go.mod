@@ -42,3 +42,5 @@ require (
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20231016165738-49dd2c1f3d0b // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
+
+replace github.com/opiproject/opi-api => github.com/mardim91/opi-api v0.0.0-20240110121013-fe56fe24d360
