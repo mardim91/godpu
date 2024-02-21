@@ -47,6 +47,7 @@ func CreateSVI() *cobra.Command {
 				svi.GetSpec().GetEnableBgp(), svi.GetSpec().GetGwIpPrefix(), svi.GetSpec().GetRemoteAs())
 		},
 	}
+	cmd.Flags().StringVar(&name, "name", "", "SVI Name")
 	cmd.Flags().StringVar(&vrf, "vrf", "", "Must be unique")
 	cmd.Flags().StringVar(&logicalBridge, "logicalBridge", "", "Pair of vni and vlan_id must be unique")
 	cmd.Flags().StringVar(&mac, "mac", "", "GW MAC address, random MAC assigned if not specified")

@@ -89,7 +89,7 @@ func DeleteBridgePort() *cobra.Command {
 			if err != nil {
 				log.Fatalf("DeleteBridgePort: Error occurred while deleting Bridge Port: %q", err)
 			}
-			log.Printf("Deleted BridgePort ")
+			log.Printf("Deleting BridgePort in process\n")
 		},
 	}
 

@@ -85,7 +85,7 @@ func DeleteVRF() *cobra.Command {
 			if err != nil {
 				log.Fatalf("DeleteVRF: Error occurred while creating Bridge Port: %q", err)
 			}
-			log.Printf("Deleted VRF with VPort ID: %s\n", name)
+			log.Printf("Deleting VRF in process with VPort ID: %s\n", name)
 		},
 	}
 
@@ -154,10 +154,12 @@ func ListVRFs() *cobra.Command {
 				if err != nil {
 					log.Fatalf("Failed to get items: %v", err)
 				}
+
 				// Process the server response
 				for _, vrf := range resp.Vrfs {
-					log.Printf("VRF with \n name: %s\n operation status: %d\n vni : %d\n vtep ip : %s\n loopback ip: %s\n", vrf.GetName(), vrf.GetStatus().GetOperStatus(),
-						vrf.GetSpec().GetVni(), vrf.GetSpec().GetVtepIpPrefix(), vrf.GetSpec().GetLoopbackIpPrefix())
+				 Vteip := fmt.Sprintf("%+v/%v",ipconv.IntToIPv4(vrf.GetSpec().GetVtepIpPrefix().GetAddr().GetV4Addr()),vrf.GetSpec().GetVtepIpPrefix().GetLen())
+        	                Loopback := fmt.Sprintf("%+v/%+v",ipconv.IntToIPv4(vrf.GetSpec().GetLoopbackIpPrefix().GetAddr().GetV4Addr()),vrf.GetSpec().GetLoopbackIpPrefix().GetLen())
+				log.Printf("VRF with \n name: %s\n operation status: %d\n vni : %d\n vtep ip : %s\n loopback ip: %s\n", vrf.GetName(), vrf.GetStatus().GetOperStatus(),vrf.GetSpec().GetVni(), Vteip,Loopback)
 				}
 
 				// Check if there are more pages to retrieve
