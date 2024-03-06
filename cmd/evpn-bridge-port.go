@@ -38,8 +38,8 @@ func CreateBridgePort() *cobra.Command {
 			if err != nil {
 				log.Fatalf("could not create Bridge Port: %v", err)
 			}
-			log.Printf("Created Bridge Port:\n status: %s\n type: %s\n name: %s\n bridges: %s\n mac: %s\n", bridgePort.GetStatus().GetOperStatus(), bridgePort.GetSpec().GetPtype(),
-				bridgePort.GetName(), bridgePort.GetSpec().GetLogicalBridges(), bridgePort.GetSpec().GetMacAddress())
+			log.Printf("Created Bridge Port:\n name: %s \n status: %s\n ptype: %s\n  mac: %s\n bridges: %s\n", bridgePort.GetName(), bridgePort.GetStatus().GetOperStatus(), bridgePort.GetSpec().GetPtype(),
+				bridgePort.GetSpec().GetMacAddress(), bridgePort.GetSpec().GetLogicalBridges())
 		},
 	}
 
@@ -122,8 +122,8 @@ func GetBridgePort() *cobra.Command {
 			if err != nil {
 				log.Fatalf("GetBridgePort: Error occurred while creating Bridge Port: %q", err)
 			}
-			log.Printf("Bridge Port:\n status: %s\n type: %s\n name: %s\n bridges: %s\n mac: %s\n", bridgePort.GetStatus().GetOperStatus(), bridgePort.GetSpec().GetPtype(),
-				bridgePort.GetName(), bridgePort.GetSpec().GetLogicalBridges(), bridgePort.GetSpec().GetMacAddress())
+			log.Printf("Get Bridge Port:\n name: %s \n status: %s\n ptype: %s\n  mac: %s\n bridges: %s\n", bridgePort.GetName(), bridgePort.GetStatus().GetOperStatus(), bridgePort.GetSpec().GetPtype(),
+				bridgePort.GetSpec().GetMacAddress(), bridgePort.GetSpec().GetLogicalBridges())
 		},
 	}
 
@@ -159,8 +159,8 @@ func ListBridgePorts() *cobra.Command {
 				}
 				// Process the server response
 				for _, bridgePort := range resp.BridgePorts {
-					log.Printf("Bridge Port:\n status: %s\n type: %s\n name: %s\n bridges: %s\n mac: %s\n", bridgePort.GetStatus().GetOperStatus(), bridgePort.GetSpec().GetPtype(),
-						bridgePort.GetName(), bridgePort.GetSpec().GetLogicalBridges(), bridgePort.GetSpec().GetMacAddress())
+					log.Printf("Bridge Port:\n name: %s \n status: %s\n ptype: %s\n  mac: %s\n bridges: %s\n", bridgePort.GetName(), bridgePort.GetStatus().GetOperStatus().String(), bridgePort.GetSpec().GetPtype(),
+						bridgePort.GetSpec().GetMacAddress(), bridgePort.GetSpec().GetLogicalBridges())
 				}
 
 				// Check if there are more pages to retrieve
@@ -203,8 +203,8 @@ func UpdateBridgePort() *cobra.Command {
 			if err != nil {
 				log.Fatalf("UpdateBridgePort: Error occurred while creating Bridge Port: %q", err)
 			}
-			log.Printf("Bridge Port:\n status: %s\n type: %s\n name: %s\n bridges: %s\n mac: %s\n", bridgePort.GetStatus().GetOperStatus(), bridgePort.GetSpec().GetPtype(),
-				bridgePort.GetName(), bridgePort.GetSpec().GetLogicalBridges(), bridgePort.GetSpec().GetMacAddress())
+			log.Printf("Updated Bridge Port:\n name: %s \n status: %s\n ptype: %s\n  mac: %s\n bridges: %s\n", bridgePort.GetName(), bridgePort.GetStatus().GetOperStatus(), bridgePort.GetSpec().GetPtype(),
+				bridgePort.GetSpec().GetMacAddress(), bridgePort.GetSpec().GetLogicalBridges())
 		},
 	}
 	cmd.Flags().StringVar(&name, "name", "", "name of the Bridge Port")

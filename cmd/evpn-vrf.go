@@ -11,12 +11,12 @@ import (
 	"time"
 
 	"fmt"
-	"github.com/PraserX/ipconv"	
-	"github.com/opiproject/godpu/network"
-	"github.com/spf13/cobra"
-	pb "github.com/opiproject/opi-api/network/evpn-gw/v1alpha1/gen/go"	
-)
 
+	"github.com/PraserX/ipconv"
+	"github.com/opiproject/godpu/network"
+	pb "github.com/opiproject/opi-api/network/evpn-gw/v1alpha1/gen/go"
+	"github.com/spf13/cobra"
+)
 
 // CreateVRF Create vrf on OPI Server
 func CreateVRF() *cobra.Command {
@@ -41,9 +41,9 @@ func CreateVRF() *cobra.Command {
 			if err != nil {
 				log.Fatalf("failed to create vrf: %v", err)
 			}
-			Vteip := fmt.Sprintf("%+v/%v",ipconv.IntToIPv4(vrf.GetSpec().GetVtepIpPrefix().GetAddr().GetV4Addr()),vrf.GetSpec().GetVtepIpPrefix().GetLen())
-			Loopback := fmt.Sprintf("%+v/%+v",ipconv.IntToIPv4(vrf.GetSpec().GetLoopbackIpPrefix().GetAddr().GetV4Addr()),vrf.GetSpec().GetLoopbackIpPrefix().GetLen())
-			log.Printf("Created VRF with \n name: %s\n operation status: %s\n vni : %d\n vtep ip : %s\n loopback ip  : %s\n Component Status:\n%s\n", vrf.GetName(), pb.VRFOperStatus_name[int32(vrf.GetStatus().GetOperStatus())],vrf.GetSpec().GetVni(), Vteip,Loopback,Print_Components(vrf.GetStatus().GetComponents()))
+			Vteip := fmt.Sprintf("%+v/%v", ipconv.IntToIPv4(vrf.GetSpec().GetVtepIpPrefix().GetAddr().GetV4Addr()), vrf.GetSpec().GetVtepIpPrefix().GetLen())
+			Loopback := fmt.Sprintf("%+v/%+v", ipconv.IntToIPv4(vrf.GetSpec().GetLoopbackIpPrefix().GetAddr().GetV4Addr()), vrf.GetSpec().GetLoopbackIpPrefix().GetLen())
+			log.Printf("Created VRF with \n name: %s\n operation status: %s\n vni : %d\n vtep ip : %s\n loopback ip  : %s\n Component Status:\n%s\n", vrf.GetName(), pb.VRFOperStatus_name[int32(vrf.GetStatus().GetOperStatus())], vrf.GetSpec().GetVni(), Vteip, Loopback, PrintComponents(vrf.GetStatus().GetComponents()))
 		},
 	}
 
@@ -117,10 +117,10 @@ func GetVRF() *cobra.Command {
 			if err != nil {
 				log.Fatalf("DeleteVRF: Error occurred while creating Bridge Port: %q", err)
 			}
-			Vteip := fmt.Sprintf("%+v/%v",ipconv.IntToIPv4(vrf.GetSpec().GetVtepIpPrefix().GetAddr().GetV4Addr()),vrf.GetSpec().GetVtepIpPrefix().GetLen())
-                        Loopback := fmt.Sprintf("%+v/%+v",ipconv.IntToIPv4(vrf.GetSpec().GetLoopbackIpPrefix().GetAddr().GetV4Addr()),vrf.GetSpec().GetLoopbackIpPrefix().GetLen())
+			Vteip := fmt.Sprintf("%+v/%v", ipconv.IntToIPv4(vrf.GetSpec().GetVtepIpPrefix().GetAddr().GetV4Addr()), vrf.GetSpec().GetVtepIpPrefix().GetLen())
+			Loopback := fmt.Sprintf("%+v/%+v", ipconv.IntToIPv4(vrf.GetSpec().GetLoopbackIpPrefix().GetAddr().GetV4Addr()), vrf.GetSpec().GetLoopbackIpPrefix().GetLen())
 
-			log.Printf("VRF with \n name: %s\n operation status: %s\n vni : %d\n vtep ip : %s\n loopback ip: %s\n Component Status:\n%s\n", vrf.GetName(), pb.VRFOperStatus_name[int32(vrf.GetStatus().GetOperStatus())],vrf.GetSpec().GetVni(), Vteip,Loopback,Print_Components(vrf.GetStatus().GetComponents()))
+			log.Printf("VRF with \n name: %s\n operation status: %s\n vni : %d\n vtep ip : %s\n loopback ip: %s\n Component Status:\n%s\n", vrf.GetName(), pb.VRFOperStatus_name[int32(vrf.GetStatus().GetOperStatus())], vrf.GetSpec().GetVni(), Vteip, Loopback, PrintComponents(vrf.GetStatus().GetComponents()))
 		},
 	}
 
@@ -157,9 +157,9 @@ func ListVRFs() *cobra.Command {
 
 				// Process the server response
 				for _, vrf := range resp.Vrfs {
-				 Vteip := fmt.Sprintf("%+v/%v",ipconv.IntToIPv4(vrf.GetSpec().GetVtepIpPrefix().GetAddr().GetV4Addr()),vrf.GetSpec().GetVtepIpPrefix().GetLen())
-        	                Loopback := fmt.Sprintf("%+v/%+v",ipconv.IntToIPv4(vrf.GetSpec().GetLoopbackIpPrefix().GetAddr().GetV4Addr()),vrf.GetSpec().GetLoopbackIpPrefix().GetLen())
-				log.Printf("VRF with \n name: %s\n operation status: %d\n vni : %d\n vtep ip : %s\n loopback ip: %s\n", vrf.GetName(), vrf.GetStatus().GetOperStatus(),vrf.GetSpec().GetVni(), Vteip,Loopback)
+					Vteip := fmt.Sprintf("%+v/%v", ipconv.IntToIPv4(vrf.GetSpec().GetVtepIpPrefix().GetAddr().GetV4Addr()), vrf.GetSpec().GetVtepIpPrefix().GetLen())
+					Loopback := fmt.Sprintf("%+v/%+v", ipconv.IntToIPv4(vrf.GetSpec().GetLoopbackIpPrefix().GetAddr().GetV4Addr()), vrf.GetSpec().GetLoopbackIpPrefix().GetLen())
+					log.Printf("VRF with \n name: %s\n operation status: %d\n vni : %d\n vtep ip : %s\n loopback ip: %s\n", vrf.GetName(), vrf.GetStatus().GetOperStatus(), vrf.GetSpec().GetVni(), Vteip, Loopback)
 				}
 
 				// Check if there are more pages to retrieve
@@ -213,12 +213,12 @@ func UpdateVRF() *cobra.Command {
 	return cmd
 }
 
-func Print_Components(comp []*pb.Component)string{
-        var status string
-        for i:=0; i<len(comp) ; i++ {
-                str := fmt.Sprintf(" %+v\n",comp[i])
-                status +=str
-        }
-        return status
+// PrintComponents prints the components
+func PrintComponents(comp []*pb.Component) string {
+	var status string
+	for i := 0; i < len(comp); i++ {
+		str := fmt.Sprintf(" %+v\n", comp[i])
+		status += str
+	}
+	return status
 }
-
