@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: Apache-2.0
 // Copyright (c) 2022-2023 Intel Corporation, or its subsidiaries.
 // Copyright (c) 2022-2023 Dell Inc, or its subsidiaries.
+// Copyright (c) 2024 Ericsson AB.
 
 // Package cmd implements the CLI commands
 package cmd
@@ -43,7 +44,8 @@ func CreateVRF() *cobra.Command {
 			}
 			Vteip := fmt.Sprintf("%+v/%v", ipconv.IntToIPv4(vrf.GetSpec().GetVtepIpPrefix().GetAddr().GetV4Addr()), vrf.GetSpec().GetVtepIpPrefix().GetLen())
 			Loopback := fmt.Sprintf("%+v/%+v", ipconv.IntToIPv4(vrf.GetSpec().GetLoopbackIpPrefix().GetAddr().GetV4Addr()), vrf.GetSpec().GetLoopbackIpPrefix().GetLen())
-			log.Printf("Created VRF with \n name: %s\n operation status: %s\n vni : %d\n vtep ip : %s\n loopback ip  : %s\n Component Status:\n%s\n", vrf.GetName(), pb.VRFOperStatus_name[int32(vrf.GetStatus().GetOperStatus())], vrf.GetSpec().GetVni(), Vteip, Loopback, PrintComponents(vrf.GetStatus().GetComponents()))
+			log.Printf("Created VRF with \nname: %s\noperation status: %s\nvni : %d\nvtep ip : %s\nloopback ip  : %s\nComponent Status:\n%s\n",
+				vrf.GetName(), pb.VRFOperStatus_name[int32(vrf.GetStatus().GetOperStatus())], vrf.GetSpec().GetVni(), Vteip, Loopback, PrintComponents(vrf.GetStatus().GetComponents()))
 		},
 	}
 
@@ -120,7 +122,7 @@ func GetVRF() *cobra.Command {
 			Vteip := fmt.Sprintf("%+v/%v", ipconv.IntToIPv4(vrf.GetSpec().GetVtepIpPrefix().GetAddr().GetV4Addr()), vrf.GetSpec().GetVtepIpPrefix().GetLen())
 			Loopback := fmt.Sprintf("%+v/%+v", ipconv.IntToIPv4(vrf.GetSpec().GetLoopbackIpPrefix().GetAddr().GetV4Addr()), vrf.GetSpec().GetLoopbackIpPrefix().GetLen())
 
-			log.Printf("VRF with \n name: %s\n operation status: %s\n vni : %d\n vtep ip : %s\n loopback ip: %s\n Component Status:\n%s\n", vrf.GetName(), pb.VRFOperStatus_name[int32(vrf.GetStatus().GetOperStatus())], vrf.GetSpec().GetVni(), Vteip, Loopback, PrintComponents(vrf.GetStatus().GetComponents()))
+			log.Printf("VRF with \nname: %s\noperation status: %s\nvni : %d\nvtep ip : %s\nloopback ip: %s\nComponent Status:\n%s\n", vrf.GetName(), pb.VRFOperStatus_name[int32(vrf.GetStatus().GetOperStatus())], vrf.GetSpec().GetVni(), Vteip, Loopback, PrintComponents(vrf.GetStatus().GetComponents()))
 		},
 	}
 
@@ -159,7 +161,7 @@ func ListVRFs() *cobra.Command {
 				for _, vrf := range resp.Vrfs {
 					Vteip := fmt.Sprintf("%+v/%v", ipconv.IntToIPv4(vrf.GetSpec().GetVtepIpPrefix().GetAddr().GetV4Addr()), vrf.GetSpec().GetVtepIpPrefix().GetLen())
 					Loopback := fmt.Sprintf("%+v/%+v", ipconv.IntToIPv4(vrf.GetSpec().GetLoopbackIpPrefix().GetAddr().GetV4Addr()), vrf.GetSpec().GetLoopbackIpPrefix().GetLen())
-					log.Printf("VRF with \n name: %s\n operation status: %d\n vni : %d\n vtep ip : %s\n loopback ip: %s\n", vrf.GetName(), vrf.GetStatus().GetOperStatus(), vrf.GetSpec().GetVni(), Vteip, Loopback)
+					log.Printf("VRF with \nname: %s\noperation status: %d\nvni : %d\nvtep ip : %s\nloopback ip: %s\n", vrf.GetName(), vrf.GetStatus().GetOperStatus(), vrf.GetSpec().GetVni(), Vteip, Loopback)
 				}
 
 				// Check if there are more pages to retrieve
@@ -201,7 +203,7 @@ func UpdateVRF() *cobra.Command {
 			if err != nil {
 				log.Fatalf("GetBridgePort: Error occurred while creating Bridge Port: %q", err)
 			}
-			log.Printf("Updated VRF with \n name: %s\n operation status: %d\n vni : %d\n vtep ip : %s\n loopback ip: %s\n", vrf.GetName(), vrf.GetStatus().GetOperStatus(),
+			log.Printf("Updated VRF with \nname: %s\noperation status: %d\nvni : %d\nvtep ip : %s\nloopback ip: %s\n", vrf.GetName(), vrf.GetStatus().GetOperStatus(),
 				vrf.GetSpec().GetVni(), vrf.GetSpec().GetVtepIpPrefix(), vrf.GetSpec().GetLoopbackIpPrefix())
 		},
 	}
